@@ -15,6 +15,13 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "Gw2Build";
     private static final String SPEC_TABLE_NAME = "Specializations";
     private static final String[] SPEC_COLUMN_NAMES = {"spec_id", "name", "elite", "icon", "background", "profession"};
+    private static final String SKILL_TABLE_NAME = "Skills";
+    private static final String[] SKILL_COLUMN_NAMES = {"skill_id", "name", "description", "type", "weapon_type", "slot", "category","attunement",
+                                                        "toolbelt_skill", "cost", "dual_wield", "flip_skill", "initiative", "next_chain", "prev_chain"};
+    private static final String TRAIT_TABLE_NAME = "Traits";
+    private static final String[] TRAIT_COLUMN_NAMES = {"trait_id", "name", "description", "spec_id", "tier", "slot", "icon"};
+    private static final String SKILL_PROF_TABLE_NAME = "Skill_Prof";
+    private static final String[] SKILL_PROF_COLUMN_NAMES = {"skill_id", "elementalist", "mesmer", "necromancer", "ranger", "thief", "engineer", "warrior", "guardian", "revenant"};
     private final Context parentContext;
 
     private RemoteDBHelper RemoteDBHelper;
@@ -48,66 +55,67 @@ public class DBHelper extends SQLiteOpenHelper {
         if (data != null) {
             for (Spec s : data.spec_list) {
                 ContentValues row = new ContentValues();
-                row.put("spec_id", s.spec_id);
-                row.put("name", s.name);
-                row.put("elite", s.elite);
-                row.put("icon", s.icon);
-                row.put("background", s.background);
-                row.put("profession", s.profession);
+                row.put(SPEC_COLUMN_NAMES[0], s.spec_id);
+                row.put(SPEC_COLUMN_NAMES[1], s.name);
+                row.put(SPEC_COLUMN_NAMES[2], s.elite);
+                row.put(SPEC_COLUMN_NAMES[3], s.icon);
+                row.put(SPEC_COLUMN_NAMES[4], s.background);
+                row.put(SPEC_COLUMN_NAMES[5], s.profession);
+                
                 db.insert(SPEC_TABLE_NAME, null, row);
                 Log.e("insert data", "" + s);
             }
 
             for (Skill s : data.skill_list) {
                 ContentValues row = new ContentValues();
-                row.put("skill_id", s.skill_id);
-                row.put("name", s.name);
-                row.put("description", s.description);
-                row.put("type", s.type);
-                row.put("weapon_type", s.weapon_type);
-                row.put("slot", s.slot);
-                row.put("category", s.category);
-                row.put("attunement", s.attunement);
-                row.put("toolbelt_skill", s.toolbelt_skill);
-                row.put("cost", s.cost);
-                row.put("dualwield", s.dual_wield);
-                row.put("flip_skill", s.flip_skill);
-                row.put("initiative", s.initiative);
-                row.put("next_chain", s.next_chain);
-                row.put("prev_chain", s.prev_chain);
+                row.put(SKILL_COLUMN_NAMES[0], s.skill_id);
+                row.put(SKILL_COLUMN_NAMES[1], s.name);
+                row.put(SKILL_COLUMN_NAMES[2], s.description);
+                row.put(SKILL_COLUMN_NAMES[3], s.type);
+                row.put(SKILL_COLUMN_NAMES[4], s.weapon_type);
+                row.put(SKILL_COLUMN_NAMES[5], s.slot);
+                row.put(SKILL_COLUMN_NAMES[6], s.category);
+                row.put(SKILL_COLUMN_NAMES[7], s.attunement);
+                row.put(SKILL_COLUMN_NAMES[8], s.toolbelt_skill);
+                row.put(SKILL_COLUMN_NAMES[9], s.cost);
+                row.put(SKILL_COLUMN_NAMES[10], s.dual_wield);
+                row.put(SKILL_COLUMN_NAMES[11], s.flip_skill);
+                row.put(SKILL_COLUMN_NAMES[12], s.initiative);
+                row.put(SKILL_COLUMN_NAMES[13], s.next_chain);
+                row.put(SKILL_COLUMN_NAMES[14], s.prev_chain);
 
-                db.insert("Skills", null, row);
+                db.insert(SKILL_TABLE_NAME, null, row);
                 Log.e("insert data", "" + s);
             }
 
             for (Trait s : data.trait_list) {
                 ContentValues row = new ContentValues();
-                row.put("trait_id", s.trait_id);
-                row.put("name", s.name);
-                row.put("description", s.description);
-                row.put("spec_id", s.spec_id);
-                row.put("tier", s.tier);
-                row.put("slot", s.slot);
-                row.put("icon", s.icon);
+                row.put(TRAIT_COLUMN_NAMES[0], s.trait_id);
+                row.put(TRAIT_COLUMN_NAMES[1], s.name);
+                row.put(TRAIT_COLUMN_NAMES[2], s.description);
+                row.put(TRAIT_COLUMN_NAMES[3], s.spec_id);
+                row.put(TRAIT_COLUMN_NAMES[4], s.tier);
+                row.put(TRAIT_COLUMN_NAMES[5], s.slot);
+                row.put(TRAIT_COLUMN_NAMES[6], s.icon);
 
-                db.insert("Traits", null, row);
+                db.insert(TRAIT_TABLE_NAME, null, row);
                 Log.e("insert data", "" + s);
             }
 
             for (SkillProf s : data.skill_prof_list) {
                 ContentValues row = new ContentValues();
-                row.put("skill_id", s.skill_id);
-                row.put("elementalist", s.elementalist);
-                row.put("mesmer", s.ranger);
-                row.put("necromancer", s.necromancer);
-                row.put("ranger", s.ranger);
-                row.put("thief", s.thief);
-                row.put("engineer", s.engineer);
-                row.put("warrior", s.warrior);
-                row.put("guardian", s.guardian);
-                row.put("revenant", s.revenant);
+                row.put(SKILL_PROF_COLUMN_NAMES[0], s.skill_id);
+                row.put(SKILL_PROF_COLUMN_NAMES[1], s.elementalist);
+                row.put(SKILL_PROF_COLUMN_NAMES[2], s.ranger);
+                row.put(SKILL_PROF_COLUMN_NAMES[3], s.necromancer);
+                row.put(SKILL_PROF_COLUMN_NAMES[4], s.ranger);
+                row.put(SKILL_PROF_COLUMN_NAMES[5], s.thief);
+                row.put(SKILL_PROF_COLUMN_NAMES[6], s.engineer);
+                row.put(SKILL_PROF_COLUMN_NAMES[7], s.warrior);
+                row.put(SKILL_PROF_COLUMN_NAMES[8], s.guardian);
+                row.put(SKILL_PROF_COLUMN_NAMES[9], s.revenant);
 
-                db.insert("Skill_Prof", null, row);
+                db.insert(SKILL_PROF_TABLE_NAME, null, row);
                 Log.e("insert data", "" + s);
             }
         }
@@ -123,71 +131,71 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void addSpec(Spec s){
         ContentValues row = new ContentValues();
-        row.put("spec_id", s.spec_id);
-        row.put("name", s.name);
-        row.put("elite", s.elite);
-        row.put("icon", s.icon);
-        row.put("background", s.background);
-        row.put("profession", s.profession);
+        row.put(SPEC_COLUMN_NAMES[0], s.spec_id);
+        row.put(SPEC_COLUMN_NAMES[1], s.name);
+        row.put(SPEC_COLUMN_NAMES[2], s.elite);
+        row.put(SPEC_COLUMN_NAMES[3], s.icon);
+        row.put(SPEC_COLUMN_NAMES[4], s.background);
+        row.put(SPEC_COLUMN_NAMES[5], s.profession);
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("Specializations", null, row);
+        db.insert(SPEC_TABLE_NAME, null, row);
         db.close();
     }
 
     public void addSkill(Skill s){
         ContentValues row = new ContentValues();
-        row.put("skill_id", s.skill_id);
-        row.put("name", s.name);
-        row.put("description", s.description);
-        row.put("type", s.type);
-        row.put("weapon_type", s.weapon_type);
-        row.put("slot", s.slot);
-        row.put("category", s.category);
-        row.put("attunement", s.attunement);
-        row.put("toolbelt_skill", s.toolbelt_skill);
-        row.put("cost", s.cost);
-        row.put("dualwield", s.dual_wield);
-        row.put("flip_skill", s.flip_skill);
-        row.put("initiative", s.initiative);
-        row.put("next_chain", s.next_chain);
-        row.put("prev_chain", s.prev_chain);
+        row.put(SKILL_COLUMN_NAMES[0], s.skill_id);
+        row.put(SKILL_COLUMN_NAMES[1], s.name);
+        row.put(SKILL_COLUMN_NAMES[2], s.description);
+        row.put(SKILL_COLUMN_NAMES[3], s.type);
+        row.put(SKILL_COLUMN_NAMES[4], s.weapon_type);
+        row.put(SKILL_COLUMN_NAMES[5], s.slot);
+        row.put(SKILL_COLUMN_NAMES[6], s.category);
+        row.put(SKILL_COLUMN_NAMES[7], s.attunement);
+        row.put(SKILL_COLUMN_NAMES[8], s.toolbelt_skill);
+        row.put(SKILL_COLUMN_NAMES[9], s.cost);
+        row.put(SKILL_COLUMN_NAMES[10], s.dual_wield);
+        row.put(SKILL_COLUMN_NAMES[11], s.flip_skill);
+        row.put(SKILL_COLUMN_NAMES[12], s.initiative);
+        row.put(SKILL_COLUMN_NAMES[13], s.next_chain);
+        row.put(SKILL_COLUMN_NAMES[14], s.prev_chain);
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("Skills", null, row);
+        db.insert(SKILL_TABLE_NAME, null, row);
         db.close();
     }
 
     public void addTrait(Trait s){
         ContentValues row = new ContentValues();
-        row.put("trait_id", s.trait_id);
-        row.put("name", s.name);
-        row.put("description", s.description);
-        row.put("spec_id", s.spec_id);
-        row.put("tier", s.tier);
-        row.put("slot", s.slot);
-        row.put("icon", s.icon);
+        row.put(TRAIT_COLUMN_NAMES[0], s.trait_id);
+        row.put(TRAIT_COLUMN_NAMES[1], s.name);
+        row.put(TRAIT_COLUMN_NAMES[2], s.description);
+        row.put(TRAIT_COLUMN_NAMES[3], s.spec_id);
+        row.put(TRAIT_COLUMN_NAMES[4], s.tier);
+        row.put(TRAIT_COLUMN_NAMES[5], s.slot);
+        row.put(TRAIT_COLUMN_NAMES[6], s.icon);
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("Traits", null, row);
+        db.insert(TRAIT_TABLE_NAME, null, row);
         db.close();
     }
 
     public void addSkillProf(SkillProf s){
         ContentValues row = new ContentValues();
-        row.put("skill_id", s.skill_id);
-        row.put("elementalist", s.elementalist);
-        row.put("mesmer", s.ranger);
-        row.put("necromancer", s.necromancer);
-        row.put("ranger", s.ranger);
-        row.put("thief", s.thief);
-        row.put("engineer", s.engineer);
-        row.put("warrior", s.warrior);
-        row.put("guardian", s.guardian);
-        row.put("revenant", s.revenant);
+        row.put(SKILL_PROF_COLUMN_NAMES[0], s.skill_id);
+        row.put(SKILL_PROF_COLUMN_NAMES[1], s.elementalist);
+        row.put(SKILL_PROF_COLUMN_NAMES[2], s.ranger);
+        row.put(SKILL_PROF_COLUMN_NAMES[3], s.necromancer);
+        row.put(SKILL_PROF_COLUMN_NAMES[4], s.ranger);
+        row.put(SKILL_PROF_COLUMN_NAMES[5], s.thief);
+        row.put(SKILL_PROF_COLUMN_NAMES[6], s.engineer);
+        row.put(SKILL_PROF_COLUMN_NAMES[7], s.warrior);
+        row.put(SKILL_PROF_COLUMN_NAMES[8], s.guardian);
+        row.put(SKILL_PROF_COLUMN_NAMES[9], s.revenant);
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("Skill_Prof", null, row);
+        db.insert(SKILL_PROF_TABLE_NAME, null, row);
         db.close();
     }
 

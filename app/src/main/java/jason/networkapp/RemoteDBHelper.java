@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class RemoteDBHelper {
     private final String rootURL = "http://kingdede.tk/gw2/";
@@ -27,7 +28,8 @@ public class RemoteDBHelper {
     private ArrayList<Trait> traitOutput = new ArrayList<>();
     private ArrayList<SkillProf> skillProfOutput = new ArrayList<>();
 
-    private ListObject allOutput;
+    private ListObject allOutput = new ListObject(null, null, null, null);
+    private ArrayList<UpdateData> updateList =  new ArrayList<>();
 
     RemoteDBHelper(Context context) {
         parentContext = context;
@@ -36,10 +38,20 @@ public class RemoteDBHelper {
     public ListObject intialInsert()
     {
         IntialInsertTask myTask = new IntialInsertTask();
-        myTask.execute();
+        try {
+            allOutput = myTask.execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
         //Log.e("public method data", " "+ allOutput.spec_list.get(0).name);
         return allOutput;
 
+    }
+
+    public ArrayList<UpdateData> update()
+    {
+
+        return updateList;
     }
 
 
@@ -64,17 +76,14 @@ public class RemoteDBHelper {
 
                 while ((line = rd.readLine()) != null)
                 {
-                    sb.append(line + '\n');
+                    sb.append(line).append('\n');
                 }
                 Log.e("Response: ", sb.toString());
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             String response = sb.toString();
 
             JSONObject jsonResult = null;
@@ -194,13 +203,6 @@ public class RemoteDBHelper {
             ListObject output = new ListObject(spec, skill, trait, skillProf);
             Log.e("do in background result", "" + output.spec_list.get(0).name);
             return output;
-        }
-
-        //its broke
-        @Override
-        protected void onPostExecute(ListObject result) {
-            allOutput = result;
-            Log.e("postexecute result", "" + result.spec_list.get(0).name + "all output: " + allOutput.spec_list.get(0).name);
         }
     }
 
