@@ -20,4 +20,7 @@ public class Trait {
         icon = a;
 
     }
+
+    Trait() {
+    }
 }

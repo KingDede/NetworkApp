@@ -25,4 +25,7 @@ public class SkillProf {
         guardian = s;
         revenant = t;
     }
+
+    SkillProf() {
+    }
 }

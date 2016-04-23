@@ -33,6 +33,8 @@ public class Skill {
         initiative = d;
         next_chain = f;
         prev_chain = g;
+    }
 
+    Skill() {
     }
 }

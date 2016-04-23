@@ -16,4 +16,8 @@ public class Spec {
         background = d;
         profession = w;
     }
+
+    Spec(){
+
+    }
 }
